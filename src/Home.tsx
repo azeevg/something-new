@@ -3,7 +3,7 @@ import {Component} from "react";
 import {Link} from "react-router-dom";
 
 type PropsType = {
-    userName: String
+    userName: String;
 };
 
 export class Home extends Component<PropsType> {
