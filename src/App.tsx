@@ -5,7 +5,7 @@ import {Login} from "./Login";
 import {Home} from "./Home";
 
 
-export class App extends Component {
+class App extends Component {
     render() {
         // how to use withRouter instead of HashRouter ?
         return (
@@ -18,3 +18,5 @@ export class App extends Component {
         );
     }
 }
+
+export default App;
