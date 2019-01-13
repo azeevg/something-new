@@ -2,20 +2,24 @@ import * as React from "react";
 import {RouterProps} from "react-router";
 import {AppState, User} from "./index";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import {loginUser} from './index';
 
-export class Login extends React.Component<RouterProps> {
+type Props = {
+    loginUser: Function;
+}
+
+class Login extends React.Component<Props & RouterProps> {
     handleClick(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        this.props.history.push('/home');
 
         // user data fetched from a server
-        let user = {
+        const user = {
             name: 'Gleb',
             email: 'gleb@email.com'
         };
-        // this.props.loginUser ???
-        loginUser(user);
+
+        this.props.loginUser(user);
+        this.props.history.push('/home');
     };
 
     render() {
@@ -28,22 +32,11 @@ export class Login extends React.Component<RouterProps> {
     }
 }
 
-
-const loginUser = (user: User) => {
-    return {
-        action: 'LOGIN',
-        user: user
-    }
-};
-
-const mapStateToProps = (state: AppState) => ({
-    user: state.user
-});
-
-
 const mapDispatchToProps = (dispatch: any) => {
-    return bindActionCreators({loginUser: loginUser}, dispatch);
+    return {
+        loginUser: (user: User) => dispatch(loginUser(user)),
+    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
 

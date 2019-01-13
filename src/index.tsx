@@ -21,6 +21,13 @@ export type AppState = {
     description: string
 }
 
+export const loginUser = (user: User): ActionType => {
+    return {
+        type: 'LOGIN',
+        user: user
+    }
+};
+
 const initialData: AppState = {
     isUserLogged: false,
     user: {
@@ -32,9 +39,13 @@ const initialData: AppState = {
 
 function userReducer(state: AppState = initialData, action: any) {
     if (action.type === 'LOGIN') {
-        state.isUserLogged = true;
-        state.user = action.payload;
+        return {
+            ...state,
+            isUserLogged: true,
+            user: action.user,
+        }
     }
+
     return state;
 }
 

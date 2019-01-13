@@ -1,12 +1,18 @@
 import * as React from "react";
 import {Component} from "react";
 import {Link} from "react-router-dom";
-import {User} from "./index";
+import {AppState, User} from "./index";
+import {connect} from 'react-redux';
 
 
-export class Home extends Component<{user: User}> {
-    // how to get user from Store ?
+class Home extends Component<{user: User}> {
     render() {
+        const {user} = this.props;
+
+        if (!user) {
+            return null;
+        }
+
         return <div>
             <Link to={'/'}>Go back</Link>
             <div>
@@ -17,3 +23,11 @@ export class Home extends Component<{user: User}> {
         </div>
     }
 }
+
+export default connect(
+    (state: AppState) => {
+        return {
+            user: state.user,
+        }
+    }
+)(Home);
